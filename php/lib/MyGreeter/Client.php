@@ -16,22 +16,25 @@ class Client
 "Good evening" if it is after 6pm and just before 12am
     */
     public function getGreeting(){
+        date_default_timezone_set('Asia/Shanghai');
         $greetingMsg = '';
+        $now = time() ;
+
         $arr = [
             "Good morning"=>[
-                strtotime(date('Y-m-d 00:00:00')),
-                strtotime(date('Y-m-d 12:00:00')),
+                strtotime(date('Y-m-d 00:00:00',$now)),
+                strtotime(date('Y-m-d 12:00:00',$now)),
             ],
             "Good afternoon"=>[
-                strtotime(date('Y-m-d 12:00:00')),
-                strtotime(date('Y-m-d 18:00:00')),
+                strtotime(date('Y-m-d 12:00:00',$now)),
+                strtotime(date('Y-m-d 18:00:00',$now)),
             ],
             "Good evening"=>[
-                strtotime(date('Y-m-d 18:00:00')),
-                strtotime(date('Y-m-d 23:59:59')),
+                strtotime(date('Y-m-d 18:00:00',$now)),
+                strtotime(date('Y-m-d 23:59:59',$now)),
             ]
         ];
-        $now = time() ;
+//        var_dump([$now,$arr]);
         foreach ($arr as $k=> $v){
             if ($now>=$v[0] && $now< $v[1]){
                 $greetingMsg = $k;
